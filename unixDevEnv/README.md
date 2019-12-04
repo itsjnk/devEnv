@@ -5,7 +5,7 @@ Switch to root user, then edit the `/etc/network/interfaces` file.
 ```Bash
 su; vi /etc/network/interfaces
 ```
-```ini
+```
 # The primary network interface
 allow-hotplug ens192
 iface ens192 inet static
@@ -27,7 +27,7 @@ Restart network interface again.
 su; apt install sudo
 /sbin/adduser $USERNAME sudo
 # Logout & login
-sudo echo 'Hello, world"
+sudo echo 'Hello, world'
 ```
 #### Git
 ```Bash
@@ -57,12 +57,12 @@ sudo apt install global, python-pygments, universal-ctags
 # Added gtags.conf into /etc/gtags.conf
 ```
 Open `nvim` and install plugs.
-```vimscript
+```vim
 :PlugInstall
 ```
 
-#### About
-+ [Why using .config/.local folder?](https://askubuntu.com/questions/14535/whats-the-local-folder-for-in-my-home-directory)
+### About
++ [Why choose .config/.local?](https://askubuntu.com/questions/14535/whats-the-local-folder-for-in-my-home-directory)
 
-#### Troubleshooting
+### Troubleshooting
 + [ERROR: gutentags: gtags-cscope job failed, returned: 1](https://github.com/skywind3000/gutentags_plus#troubleshooting)

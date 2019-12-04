@@ -3,13 +3,13 @@ This repo is used to store my configure files for \*unix & Windows plantform,
 and it will help me to restore my development environment quickly.
 
 ## \*unix platform
-[x] bash
-[x] tmux
-[x] NeoVim
-[x] git
+- [x] bash
+- [x] tmux
+- [x] NeoVim
+- [x] git
 
 ## Windows platform
-[x] KiTTY (a fork of PuTTY)
+- [x] KiTTY (a fork of PuTTY)
 
 # Developing Tips
 1. To get count of total code lines of a repo, just run:
