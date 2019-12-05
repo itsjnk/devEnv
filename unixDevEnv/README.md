@@ -39,10 +39,9 @@ git clone https://gitee.com/jnkuo/devEnv; cd devEnv
 cp user_root/bashrc ~/.bashrc
 cp user_root/gitconfig ~/.gitconfig
 cp user_root/tmux.conf ~/.tmux.conf
+# Vim: vimrc
 mkdir -p ~/.config/nvim
-mkdir -p ~/.local/share/nvim/site/autoload/
 cp user_root/init.vim ~/.config/nvim/
-cp user_root/plug.vim ~/.local/share/nvim/site/autoload
 
 # sudo apt install fonts-powerline
 # Download & install powerline-fonts for Windows
