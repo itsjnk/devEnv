@@ -1,4 +1,4 @@
-" Generial
+" -- Generial --
 set number
 set mouse=a
 if !has('nvim')
@@ -47,7 +47,7 @@ aug QFClose
   au WinEnter * if winnr('$') == 1 && &buftype == "quickfix"|q|endif
 aug END
 
-" Color scheme
+" -- Color scheme --
 syntax enable
 colorscheme default
 if !has('gui_running')
@@ -63,9 +63,29 @@ set cursorline
 set colorcolumn=100
 " set list
 
-" Plugins
-if v:version >= 800 && has('unix')
-    " Installed plugins
+" -- Plugins --
+let s:try_auto_install_missing = 1
+let s:updated_missing_files = 0
+let s:vim_plug_path = $HOME . '/.vim/autoload/plug.vim'
+let s:nvim_plug_path = $HOME . '/.local/share/nvim/site/autoload/plug.vim'
+let s:gtags_conf_path = $HOME . '/.config/gtags/gtags.conf'
+let s:need_install_plug = 0
+let s:need_install_gtags_conf = 0
+
+if has('nvim')
+	let $MYVIMRC = $HOME . '/.config/nvim/init.vim'
+elseif
+	let $MYVIMRC = $HOME . '/.vimrc'
+endif
+
+if empty(glob(s:nvim_plug_path)) || empty(glob(s:vim_plug_path))
+	let s:need_install_plug = 1
+endif
+if empty(glob(s:gtags_conf_path))
+	let s:need_install_gtags_conf = 1
+endif
+
+if v:version >= 800 && !s:need_install_plug
 	call plug#begin()
 		Plug 'vim-airline/vim-airline'
 		Plug 'vim-airline/vim-airline-themes'
@@ -88,21 +108,23 @@ if v:version >= 800 && has('unix')
     "" Need `Universal ctags` for LeaderF to show function list.
 	"" `pip install pygments` must be runned by current user.
     let $GTAGSLABEL = 'native-pygments'
-    let $GTAGSCONF = '/etc/gtags.conf'
+    let $GTAGSCONF = s:gtags_conf_path
 
     " Gutentags : update tags database automatically
-    let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
-    let g:gutentags_ctags_tagfile = '.tags'
     let g:gutentags_modules = []
     if executable('gtags-cscope') && executable('gtags')
 		let g:gutentags_modules += ['gtags_cscope']
     endif
     let g:gutentags_cache_dir = expand('~/.cache/tags')
+    let g:gutentags_ctags_tagfile = '.tags'
+    let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
     let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
     let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
     let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
     let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
-	let g:gutentags_auto_add_gtags_cscope = 1
+	if !s:need_install_gtags_conf
+		let g:gutentags_auto_add_gtags_cscope = 1
+	endif
 
 	noremap <silent> <leader>s :cs f s <C-R><C-W><cr>
 	noremap <silent> <leader>g :cs f g <C-R><C-W><cr>
@@ -138,10 +160,69 @@ if v:version >= 800 && has('unix')
 	noremap <silent> <A-n> :bn<cr>
 	noremap <silent> <A-p> :bp<cr>
 	noremap <silent> <A-k> :bd<cr>
-	let g:airline_powerline_fonts = 1
-	let g:airline_theme = 'powerlineish'
-	let g:airline_statusline_ontop=0
+	let g:airline_powerline_fonts = 0
+	let g:airline_theme = 'dark'
+	let g:airline_statusline_ontop = 0
 	let g:airline#extensions#tabline#enabled = 1
-	let g:airline#extensions#ale#enabled = 1
 	let g:airline#extensions#tabline#formatter = 'unique_tail'
+endif
+
+" Donwload & install plug.vim from cloud
+function! GInstallPlug()
+	let l:vim_plug_path = $HOME . '/.vim/autoload/plug.vim'
+	let l:nvim_plug_path = $HOME . '/.local/share/nvim/site/autoload/plug.vim'
+	let l:plug_url = 'https://gitee.com/jnkuo/devEnv/raw/master/unixDevEnv/user_root/plug.vim'
+	let l:output_redirect = ' > /dev/null 2>&1'
+
+	if has('nvim') && empty(glob(l:nvim_plug_path))
+		silent execute '!' . 'curl -fLo '
+					\ . l:nvim_plug_path . ' --create-dirs '
+					\ . l:plug_url . l:output_redirect
+	elseif empty(glob(l:vim_plug_path))
+		silent execute '!' . 'curl -fLo '
+					\ . l:vim_plug_path . ' --create-dirs '
+					\ . l:plug_url . l:output_redirect
+	else
+		echo 'plug.vim has been installed already.'
+	endif
+	return v:shell_error
+endfunc
+
+" Download & install gtags.conf from cloud
+function! GInstallGtagsConf()
+	let l:gtags_conf_path = $HOME . '/.config/gtags/gtags.conf'
+	let l:gtags_conf_url = 'https://gitee.com/jnkuo/devEnv/raw/master/unixDevEnv/user_etc/gtags.conf'
+	let l:output_redirect = ' > /dev/null 2>&1'
+
+	if empty(glob(l:gtags_conf_path))
+		silent execute '!' . 'curl -fLo '
+					\ . l:gtags_conf_path . ' --create-dirs '
+					\ . l:gtags_conf_url . l:output_redirect
+	else
+		echo 'gtags.conf has been installed already.'
+	endif
+	return v:shell_error
+endfunc
+
+" Check whether plug.vim & gtags.conf have been installed
+if s:need_install_plug
+	if s:try_auto_install_missing
+		if GInstallPlug() == 0
+			let s:updated_missing_files = 1
+		else
+			echo 'Need plug.vim! Run ":call GInstallPlug()" please!'
+		endif
+	endif
+endif
+if s:need_install_gtags_conf
+	if s:try_auto_install_missing
+		if GInstallGtagsConf() == 0
+			let s:updated_missing_files = 1
+		else
+			echo 'Need gtags.conf! Run ":call GInstallGtagsConf()" please!'
+		endif
+	endif
+endif
+if s:updated_missing_files
+	source $MYVIMRC
 endif
