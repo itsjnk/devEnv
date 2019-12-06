@@ -13,16 +13,16 @@
 + [Huorong](https://www.huorong.cn): A clear anti-virus software.
 
 ### Browser
-+ ~~Firefox~~: Just the browser you want. (GDI supported)
-+ Chrome
++ Firefox: Just the browser you want. (GDI supported)
++ ~~Chrome~~
   + Default font: Arial, Georgia, Arial, Consolas.
+  + Too much RAM used, and made Windows running slowly.
 
 ### Display
 + [f.lux](https://justgetflux.com/): The soft-white option is helpful.
 + [~~MacType~~](https://github.com/snowie2000/mactype/releases): Use FreeType in Windows.
   + Version 2019.1 Beta added hooks for DirectWrite, which means Chrome could work
     with MacType.
-  + MacType will make Windows running slowly.
 + [Powerline fonts](https://github.com/powerline/fonts)
   + 'Source Code Pro for Powerline' satisfies KiTTY.
 
