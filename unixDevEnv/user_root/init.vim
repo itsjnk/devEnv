@@ -47,22 +47,6 @@ aug QFClose
   au WinEnter * if winnr('$') == 1 && &buftype == "quickfix"|q|endif
 aug END
 
-" -- Color scheme --
-syntax enable
-colorscheme default
-if !has('gui_running')
-	set t_Co=256
-	highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=NONE
-	highlight CursorLineNr cterm=NONE ctermfg=White ctermbg=NONE
-	highlight LineNr ctermfg=DarkYellow ctermbg=Black
-elseif has('win32') || has('win64')
-	set guifont=Consolas:h11
-endif
-set hlsearch
-set cursorline
-set colorcolumn=100
-" set list
-
 " -- Plugins --
 let s:try_auto_install_missing = 1
 let s:updated_missing_files = 0
@@ -98,6 +82,7 @@ if v:version >= 800 && !s:need_install_plug
 		else
 			Plug 'mhinz/vim-signify', { 'branch': 'legacy' }
 		endif
+		Plug 'altercation/vim-colors-solarized'
     call plug#end()
 
 	" Supertab
@@ -125,6 +110,7 @@ if v:version >= 800 && !s:need_install_plug
 	if !s:need_install_gtags_conf
 		let g:gutentags_auto_add_gtags_cscope = 1
 	endif
+	let g:gutentags_define_advanced_commands = 1
 
 	noremap <silent> <leader>s :cs f s <C-R><C-W><cr>
 	noremap <silent> <leader>g :cs f g <C-R><C-W><cr>
@@ -161,11 +147,30 @@ if v:version >= 800 && !s:need_install_plug
 	noremap <silent> <A-p> :bp<cr>
 	noremap <silent> <A-k> :bd<cr>
 	let g:airline_powerline_fonts = 0
-	let g:airline_theme = 'dark'
+	let g:airline_theme = 'solarized_flood'
 	let g:airline_statusline_ontop = 0
 	let g:airline#extensions#tabline#enabled = 1
 	let g:airline#extensions#tabline#formatter = 'unique_tail'
 endif
+
+" -- Color scheme --
+syntax enable
+if s:need_install_plug
+	colorscheme default
+else
+	colorscheme solarized
+endif
+if !has('gui_running')
+	set background=dark
+	let g:solarized_termcolors=16
+elseif has('win32') || has('win64')
+	set guifont=Consolas:h11
+	set background=light
+endif
+set hlsearch
+set cursorline
+set colorcolumn=100
+" set list
 
 " Donwload & install plug.vim from cloud
 function! GInstallPlug()
