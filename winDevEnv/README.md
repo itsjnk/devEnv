@@ -25,6 +25,10 @@
     with MacType.
 + [Powerline fonts](https://github.com/powerline/fonts)
   + 'Source Code Pro for Powerline' satisfies KiTTY.
++ Source Han Fonts
+  + Serif: [Source Han Serif](https://github.com/adobe-fonts/source-han-serif/tree/release/#region-specific-subset-otfs)
+  + Sans: [Source Han Sans](https://github.com/adobe-fonts/source-han-sans/tree/release#region-specific-subset-otfs)
+  + Mono: Source Code Pro
 
 ### Editor
 + [gVim](https://www.vim.org): A powerful editor.
