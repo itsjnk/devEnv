@@ -123,6 +123,7 @@ if ! shopt -oq posix; then
 fi
 
 export TERM=xterm-256color
+export SVN_EDITOR=vim
 
 # yum install bash-completion bash-completion-extras
 # source /etc/profile.d/bash_completion.sh
