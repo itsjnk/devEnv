@@ -67,5 +67,5 @@
 + [idrac-kvm-keyboard-fix](https://github.com/anchor/idrac-kvm-keyboard-fix)
 
 ## Society
-+ [995.WLB](https://github.com/formulahendry/955.WLB)
++ [955.WLB](https://github.com/formulahendry/955.WLB)
 + [996.ICU](https://github.com/996icu/996.ICU)

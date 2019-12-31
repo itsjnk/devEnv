@@ -58,7 +58,7 @@ let s:need_install_gtags_conf = 0
 
 if has('nvim')
 	let $MYVIMRC = $HOME . '/.config/nvim/init.vim'
-elseif
+else
 	let $MYVIMRC = $HOME . '/.vimrc'
 endif
 
