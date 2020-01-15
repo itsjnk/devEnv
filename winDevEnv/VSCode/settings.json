@@ -1,0 +1,17 @@
+{
+    "workbench.iconTheme": null,
+    "update.mode": "manual",
+    "editor.minimap.enabled": false,
+    "files.eol": "\n",
+    "workbench.colorTheme": "Visual Studio Dark",
+    "editor.fontFamily": "'Source Code Pro', Consolas, 'Courier New', monospace",
+    "editor.fontSize": 14,
+    "workbench.startupEditor": "newUntitledFile",
+    "terminal.integrated.copyOnSelection": true,
+    "[c]": {
+        "editor.tabSize": 8
+    },
+    "window.zoomLevel": 0,
+    "terminal.integrated.fontFamily": "'Source Code Pro', Consolas",
+    "terminal.integrated.fontSize": 14
+}
